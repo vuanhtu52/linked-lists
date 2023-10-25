@@ -92,13 +92,29 @@ const LinkedList = () => {
         return current;
     };
 
+    const toString = () => {
+        let current = head;
+        if (current === null) {
+            return "null";
+        }
+        let stringResult = "";
+        while (current.getNextNode() !== null) {
+            stringResult += current.getValue().toString() + " --> ";
+            current = current.getNextNode();
+        }
+        // Add the result of the last node
+        stringResult += current.getValue() + " --> null";
+        return stringResult;
+    };
+
     return {
         getHead,
         getTail,
         append,
         prepend,
         size,
-        at
+        at,
+        toString,
     }
 };
 
@@ -108,10 +124,10 @@ list.append("6");
 list.append("9");
 list.append("12");
 
-// list.prepend("3");
-// list.prepend("6");
-// list.prepend("9");
-// list.prepend("12");
+list.prepend("3");
+list.prepend("6");
+list.prepend("9");
+list.prepend("12");
 
 // console.log(list.getHead().getValue());
 // console.log(list.getTail().getValue());
@@ -121,6 +137,4 @@ list.append("12");
 
 // console.log(list.size());
 
-const node = list.at(4);
-console.log(node);
-console.log(node.getValue());
+console.log(list.toString());
