@@ -158,6 +158,47 @@ const LinkedList = () => {
         return null;
     };
 
+    const insertAt  = (value, index) => {
+        if (index < 0) {
+            console.log("Cannot add value at negative position.");
+            return;
+        }
+        // If the list is empty
+        if (head === null) {
+            if (index === 0) {
+                append(value);
+            } else {
+                console.log(`List is empty. Cannot add value at position ${index}`);
+            }
+        } else { // If the list is not empty
+            // Insert new node at the beginning if index = 0
+            if (index === 0) {
+                prepend(value);
+            } else { 
+                let currentIndex = 0;
+                let current = head;
+                // Traverse to the node at position index - 1
+                while (currentIndex < index - 1) {
+                    current = current.getNextNode();
+                    currentIndex++;
+                    if (current === null) {
+                        console.log("Index greater than list size.");
+                        break
+                    }
+                }
+                // If the index is at the end of the list
+                if (current.getNextNode() === null) {
+                    append(value);
+                } else {
+                    // Append the new node right after current
+                    const node = Node(value, null);
+                    node.setNextNode(current.getNextNode());
+                    current.setNextNode(node);
+                }
+            }
+        }
+    };
+
     const toString = () => {
         let current = head;
         if (current === null) {
@@ -183,6 +224,7 @@ const LinkedList = () => {
         pop,
         contains,
         find,
+        insertAt,
         toString,
     }
 };
@@ -208,6 +250,8 @@ list.append("12");
 
 // console.log(list.size());
 
-console.log(list.find("9"));
+// console.log(list.find("9"));
+
+list.insertAt("100", 0);
 
 console.log(list.toString());
