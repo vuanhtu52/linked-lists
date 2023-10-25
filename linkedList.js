@@ -30,6 +30,14 @@ const LinkedList = () => {
     let head = null;
     let tail = null;
 
+    const getHead = () => {
+        return head;
+    };
+
+    const getTail = () => {
+        return tail;
+    };
+
     const append = value => {
         // Special case when the list is empty
         if (head === null && tail === null) {
@@ -70,12 +78,18 @@ const LinkedList = () => {
         }
     };
 
-    const getHead = () => {
-        return head;
-    };
-
-    const getTail = () => {
-        return tail;
+    const at = index => {
+        if (index < 0) {
+            return null;
+        }
+        let current = head;
+        for (let i = 1; i <= index; i++) {
+            if (current === null) {
+                return current;
+            }
+            current = current.getNextNode();
+        }
+        return current;
     };
 
     return {
@@ -84,14 +98,15 @@ const LinkedList = () => {
         append,
         prepend,
         size,
+        at
     }
 };
 
 let list = LinkedList();
-// list.append("3");
-// list.append("6");
-// list.append("9");
-// list.append("12");
+list.append("3");
+list.append("6");
+list.append("9");
+list.append("12");
 
 // list.prepend("3");
 // list.prepend("6");
@@ -101,4 +116,11 @@ let list = LinkedList();
 // console.log(list.getHead().getValue());
 // console.log(list.getTail().getValue());
 
-console.log(list.size());
+// console.log(list.getHead());
+// console.log(list.getTail());
+
+// console.log(list.size());
+
+const node = list.at(4);
+console.log(node);
+console.log(node.getValue());
