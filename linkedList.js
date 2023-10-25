@@ -116,10 +116,12 @@ const LinkedList = () => {
 
     const contains = value => {
         let current = head;
+
         // Return false if the list is empty
         if (current === null) {
             return false;
         }
+
         // If the list is not empty, traverse to the last node and check
         while (current.getNextNode() !== null) {
             if (current.getValue() === value) {
@@ -131,6 +133,29 @@ const LinkedList = () => {
             return true;
         }
         return false;
+    };
+
+    const find = value => {
+        let current = head;
+
+        // Return null if the list is empty
+        if (current === null) {
+            return null;
+        }
+
+        // Traverse to the last node and check each node
+        let index = 0;
+        while (current.getNextNode() !== null) {
+            if (current.getValue() === value) {
+                return index;
+            }
+            current = current.getNextNode();
+            index += 1;
+        }
+        if (current.getValue() === value) {
+            return index;
+        }
+        return null;
     };
 
     const toString = () => {
@@ -157,6 +182,7 @@ const LinkedList = () => {
         at,
         pop,
         contains,
+        find,
         toString,
     }
 };
@@ -164,8 +190,8 @@ const LinkedList = () => {
 let list = LinkedList();
 list.append("3");
 list.append("6");
-// list.append("9"); 
-// list.append("12");
+list.append("9"); 
+list.append("12");
 
 // list.prepend("3");
 // list.prepend("6");
@@ -182,6 +208,6 @@ list.append("6");
 
 // console.log(list.size());
 
-console.log(list.contains("9"));
+console.log(list.find("9"));
 
 console.log(list.toString());
