@@ -92,6 +92,28 @@ const LinkedList = () => {
         return current;
     };
 
+    const pop = () => {
+        // If the linked list is empty
+        if (head === null) {
+            // Do nothing
+        } else {
+            // If the linked list has 1 node
+            if (head.getNextNode() === null) {
+                head = null;
+                tail = null;
+            } else { // If the linked list has >= 2 nodes
+                // Traverse to the last but final node
+                let current = head;
+                while (current.getNextNode().getNextNode() !== null) {
+                    current = current.getNextNode()
+                }
+                // Move tail to the previous node
+                tail = current;
+                tail.setNextNode(null);
+            }
+        }
+    };
+
     const toString = () => {
         let current = head;
         if (current === null) {
@@ -114,6 +136,7 @@ const LinkedList = () => {
         prepend,
         size,
         at,
+        pop,
         toString,
     }
 };
@@ -124,10 +147,12 @@ list.append("6");
 list.append("9");
 list.append("12");
 
-list.prepend("3");
-list.prepend("6");
-list.prepend("9");
-list.prepend("12");
+// list.prepend("3");
+// list.prepend("6");
+// list.prepend("9");
+// list.prepend("12");
+
+list.pop();
 
 // console.log(list.getHead().getValue());
 // console.log(list.getTail().getValue());
