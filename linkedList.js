@@ -73,7 +73,7 @@ const LinkedList = () => {
             while (current != null) {
                 current = current.getNextNode();
                 count += 1;
-            } 
+            }
             return count;
         }
     };
@@ -158,7 +158,7 @@ const LinkedList = () => {
         return null;
     };
 
-    const insertAt  = (value, index) => {
+    const insertAt = (value, index) => {
         if (index < 0) {
             console.log("Cannot add value at negative position.");
             return;
@@ -174,7 +174,7 @@ const LinkedList = () => {
             // Insert new node at the beginning if index = 0
             if (index === 0) {
                 prepend(value);
-            } else { 
+            } else {
                 let currentIndex = 0;
                 let current = head;
                 // Traverse to the node at position index - 1
@@ -196,6 +196,60 @@ const LinkedList = () => {
                     current.setNextNode(node);
                 }
             }
+        }
+    };
+
+    const removeAt = index => {
+        // Print error if index < 0
+        if (index < 0) {
+            console.log("Index cannot be negative.");
+            return;
+        }
+
+        // Check if the list is empty
+        if (head === null) {
+            console.log("The list is empty. Nothing to remove.");
+            return;
+        }
+
+        let currentIndex = 0;
+        let current = head;
+
+        // If the list has only 1 node
+        if (current.getNextNode() === null) {
+            if (index === 0) {
+                head = null;
+                tail = null;
+            } else {
+                console.log("Index exceeds list size.");
+            }
+            return;
+        }
+
+        // If the list has 2 or more nodes
+        if (index === 0) {
+            current = current.getNextNode();
+            head.setNextNode(null);
+            head = current;
+        } else {
+            // Traverse to position index - 1
+            while (currentIndex < index - 1) {
+                current = current.getNextNode();
+                currentIndex++;
+                if (current === null) {
+                    console.log("Index exceeds list size.");
+                    return;
+                }
+            }
+            // If the index is after the tail, return error
+            if (current.getNextNode() === null) {
+                console.log("Index exceeds list size");
+                return;
+            }
+            // If index is valid, remove the node
+            const nodeToRemove = current.getNextNode();
+            current.setNextNode(current.getNextNode().getNextNode());
+            nodeToRemove.setNextNode(null);
         }
     };
 
@@ -225,6 +279,7 @@ const LinkedList = () => {
         contains,
         find,
         insertAt,
+        removeAt,
         toString,
     }
 };
@@ -232,7 +287,7 @@ const LinkedList = () => {
 let list = LinkedList();
 list.append("3");
 list.append("6");
-list.append("9"); 
+list.append("9");
 list.append("12");
 
 // list.prepend("3");
@@ -252,6 +307,8 @@ list.append("12");
 
 // console.log(list.find("9"));
 
-list.insertAt("100", 0);
+// list.insertAt("100", 0);
 
+console.log(list.toString());
+list.removeAt(0);
 console.log(list.toString());
